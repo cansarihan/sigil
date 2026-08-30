@@ -30,7 +30,6 @@ propose ──▶ approve ×M ──▶ (timelock) ──▶ execute ──▶ t
 | **Testnet vault** | [`CB6IEZRJHZ7PAZAUNEEPIWZIBT2YGQ3RV433EPHYWG3CEE657H6K5OSQ`](https://stellar.expert/explorer/testnet/contract/CB6IEZRJHZ7PAZAUNEEPIWZIBT2YGQ3RV433EPHYWG3CEE657H6K5OSQ) |
 | **Testnet config** | 2-of-3, no timelock, 7-day proposal life |
 | **Wasm hash** | `878cf13aca799812627c17e4faab4dddafe98244d08082c24f701205455ffc8b` |
-| **Mainnet vault** | _not yet deployed — see [deployment](docs/deployment.md)_ |
 
 End-to-end on testnet, ending in a payout the **relayer paid for entirely**:
 
