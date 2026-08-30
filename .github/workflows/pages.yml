@@ -46,7 +46,10 @@ jobs:
       # reload without a copy of index.html to fall back to.
       - run: cp web/dist/index.html web/dist/404.html
 
+      # enablement lets a fresh fork deploy without a manual visit to Settings.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: web/dist
