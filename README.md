@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/banner.png" alt="Sigil — a shared treasury on Stellar that moves money only when enough of your team agrees" width="100%">
+</p>
+
 # Sigil
 
 **A shared treasury on Stellar that only moves money when enough of your team
@@ -46,6 +50,29 @@ CI     every run prints it                               878cf13a…455ffc8b
 chain  stellar contract fetch --id <VAULT> --network testnet | shasum -a 256
                                                          878cf13a…455ffc8b
 ```
+
+## The dashboard
+
+One screen, and it answers one question: *what needs me?* Proposals sort into
+four lanes — waiting for your approval, ready to execute, collecting approvals,
+closed — and the first lane is the reason to open the page.
+
+<p align="center">
+  <img src="docs/assets/dashboard.png" alt="The Sigil dashboard showing the vault balance, signer roll, and proposals sorted into lanes" width="100%">
+</p>
+
+Every proposal carries a seal ring: one arc per signer, filled as approvals
+arrive. Amber while collecting, red once quorum is reached, green once settled.
+A bar would show progress; a ring shows the group, which is what a signer
+actually needs to read.
+
+<p align="center">
+  <img src="docs/assets/dashboard-narrow.png" alt="The same dashboard at a narrow width, in a single column" width="380">
+</p>
+
+Both screenshots are the live testnet vault, seen as a visitor with no wallet
+connected. Connect as a signer and the action buttons appear on the proposals
+that need you.
 
 ## Advanced features
 
@@ -163,6 +190,7 @@ linked to the commit that shipped it:
 | The wallet aggregator pulled the entire Solana SDK into a Stellar app, with 32 advisories | Replaced with `@stellar/freighter-api`; the tree now audits clean | [`29627f4`](../../commit/29627f4) |
 | Assuming 7 decimals would render a USDC payment a hundredfold too large | Token symbol and decimals read from the chain before any amount is shown | [`5add1c4`](../../commit/5add1c4) |
 | A relayer allowlist of signer addresses would keep paying for an evicted key | Signer status checked against the live contract on every request | [`1cbf336`](../../commit/1cbf336) |
+| The first screenshot showed every amount as `…` — the SDK's spec loader cannot parse a Stellar Asset Contract, so native XLM had no decimals | Token metadata read by direct simulation, which needs no spec | see `web/src/lib/token.ts` |
 
 Once the form has responses, each recurring theme becomes an issue, and the
 commit that closes it is added to this table.
