@@ -22,7 +22,7 @@ propose ──▶ approve ×M ──▶ (timelock) ──▶ execute ──▶ t
 
 | | |
 | --- | --- |
-| **Dashboard** | _deploy via the Pages workflow, then link it here_ |
+| **Dashboard** | **<https://cansarihan.github.io/sigil/>** |
 | **Testnet vault** | [`CBP4O4G5VI3UB6L5ED7R5JUNZ7QZZMWWJYLTL6GOVK6S7II4P66GTRZ5`](https://stellar.expert/explorer/testnet/contract/CBP4O4G5VI3UB6L5ED7R5JUNZ7QZZMWWJYLTL6GOVK6S7II4P66GTRZ5) |
 | **Testnet config** | 2-of-3, no timelock, 7-day proposal life |
 | **Wasm hash** | `e56ba9aae89c13218f86371a32528c8b19469c2898a8cfcc98b0adc8b9c990fc` |
