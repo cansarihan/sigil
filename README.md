@@ -186,11 +186,11 @@ linked to the commit that shipped it:
 
 | Finding | Change | Commit |
 | --- | --- | --- |
-| The dashboard asked signers to approve proposals that had already reached quorum, so the "needs you" lane cried wolf | Quorum-met proposals moved to the waiting lane; regression test added | [`4fa51c4`](../../commit/4fa51c4), [`1503807`](../../commit/1503807) |
-| The wallet aggregator pulled the entire Solana SDK into a Stellar app, with 32 advisories | Replaced with `@stellar/freighter-api`; the tree now audits clean | [`29627f4`](../../commit/29627f4) |
-| Assuming 7 decimals would render a USDC payment a hundredfold too large | Token symbol and decimals read from the chain before any amount is shown | [`5add1c4`](../../commit/5add1c4) |
-| A relayer allowlist of signer addresses would keep paying for an evicted key | Signer status checked against the live contract on every request | [`1cbf336`](../../commit/1cbf336) |
-| The first screenshot showed every amount as `…` — the SDK's spec loader cannot parse a Stellar Asset Contract, so native XLM had no decimals | Token metadata read by direct simulation, which needs no spec | see `web/src/lib/token.ts` |
+| The dashboard asked signers to approve proposals that had already reached quorum, so the "needs you" lane cried wolf | Quorum-met proposals moved to the waiting lane; regression test added | [`eeba332`](../../commit/eeba332), [`3e6d7b1`](../../commit/3e6d7b1) |
+| The wallet aggregator pulled the entire Solana SDK into a Stellar app, with 32 advisories | Replaced with `@stellar/freighter-api`; the tree now audits clean | [`5f513a8`](../../commit/5f513a8) |
+| Assuming 7 decimals would render a USDC payment a hundredfold too large | Token symbol and decimals read from the chain before any amount is shown | [`7ceaea0`](../../commit/7ceaea0) |
+| A relayer allowlist of signer addresses would keep paying for an evicted key | Signer status checked against the live contract on every request | [`e95060e`](../../commit/e95060e) |
+| The first screenshot showed every amount as `…` — the SDK's spec loader cannot parse a Stellar Asset Contract, so native XLM had no decimals | Token metadata read by direct simulation, which needs no spec | [`a8fda23`](../../commit/a8fda23) |
 
 Once the form has responses, each recurring theme becomes an issue, and the
 commit that closes it is added to this table.
