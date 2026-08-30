@@ -96,18 +96,17 @@ Every entry point extends the instance TTL, so an active vault never archives.
 A vault untouched past its TTL needs its instance entry restored before use;
 funds are unaffected. Documented in the deployment guide.
 
-### 9 — Mainnet signer keys share one machine · accepted, and it matters
+### 9 — Key custody is out of the contract's hands · operator's problem
 
-The first mainnet vault is configured 2-of-3, but all three signer keys were
-generated on and are stored on a single machine. An attacker with that machine
-has every key, so the vault's real security is 1-of-1 — the threshold is a
-costume.
+An M-of-N vault is only as strong as the separation between its keys. Three
+keys in one password manager, or generated onto one laptop, is a 1-of-1 vault
+wearing a 2-of-3 costume — the contract cannot detect this and will happily
+execute.
 
-This is a deliberate choice for a launch vault holding a small float, not a
-recommendation. A vault holding money worth stealing needs each key on a
-separate device held by a separate person, which is the entire reason M-of-N
-exists. Rotating a key onto its own device is itself a proposal
-(`AddSigner` / `RemoveSigner`) and needs no redeploy.
+The testnet vault's keys all live on one machine, which is fine for a vault
+holding testnet tokens and wrong for anything else. Before mainnet, each key
+belongs on a separate device held by a separate person. Rotating a key onto its
+own device is a proposal (`AddSigner` / `RemoveSigner`), not a redeploy.
 
 ### 10 — No emergency pause · by design
 
