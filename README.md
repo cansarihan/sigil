@@ -35,6 +35,7 @@ End-to-end on testnet, including a payout settled by a **non-signer relayer**:
 | Deploy | [`d951d46d…`](https://stellar.expert/explorer/testnet/tx/d951d46dbdca4bf674806185bc755f7bff8537a4a80bce5227c85b17e7fb822a) |
 | Propose | [`1889a4d9…`](https://stellar.expert/explorer/testnet/tx/1889a4d92b8f1455647bb10020ae9281f95da16607fefff43525d706dd0a6a83) |
 | Execute, submitted by a non-signer | [`9e66bdf2…`](https://stellar.expert/explorer/testnet/tx/9e66bdf25ea0898cc8ccb1bd87fcf448e9cebffbf959219a1ce83c9987806f06) |
+| **Gasless settlement — relayer built, signed and paid for it; no signer involved** | [`1a21f994…`](https://stellar.expert/explorer/testnet/tx/1a21f994ff2b430712882cfe3617a053f58bdc316343dada94cf1057d4d59460) |
 
 ## Advanced features
 
