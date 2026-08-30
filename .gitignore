@@ -1,7 +1,10 @@
 # Rust
 target/
 **/*.rs.bk
-Cargo.lock.orig
+
+# Regenerated on every `cargo test`; useful locally for debugging a failing
+# test, but 500 KB of churn in every diff if committed.
+test_snapshots/
 
 # Node
 node_modules/
