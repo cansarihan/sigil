@@ -47,7 +47,7 @@ export function ProposalCard({
 
         <ul className="proposal-facts">
           <li>
-            {approvals} of {config.threshold} needed
+            {approvals} of {config.threshold} approvals
           </li>
           <li>by {shortAddress(proposal.proposer)}</li>
           {open && proposal.ready_at > 0n && !ready && (

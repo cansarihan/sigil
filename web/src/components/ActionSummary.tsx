@@ -9,7 +9,13 @@ import { useToken } from "../lib/hooks";
  * hundred-fold error in a payment someone is about to approve.
  */
 export function ActionSummary({ action }: { readonly action: Action }) {
-  const token = useToken(action.tag === "Transfer" ? action.values[0].token : undefined);
+  const token = useToken(
+    action.tag === "Transfer"
+      ? action.values[0].token
+      : action.tag === "SetDailyLimit"
+        ? action.values[0].token
+        : undefined,
+  );
 
   switch (action.tag) {
     case "Transfer": {
@@ -41,12 +47,16 @@ export function ActionSummary({ action }: { readonly action: Action }) {
     case "SetTimelock":
       return <>Set the timelock to {formatDuration(Number(action.values[0]))}</>;
     case "SetDailyLimit": {
-      const { token: address, daily_limit: limit } = action.values[0];
+      const { daily_limit: limit } = action.values[0];
+      if (limit === 0n) {
+        return <>Remove the daily spending limit on {token?.symbol ?? "this token"}</>;
+      }
       return (
         <>
-          {limit === 0n ? "Remove the daily limit on " : "Cap daily spending on "}
-          <span className="mono">{shortAddress(address)}</span>
-          {limit === 0n ? "" : ` at ${limit.toString()} base units`}
+          Cap daily spending at{" "}
+          <strong className="mono">
+            {token ? `${formatAmount(limit, token.decimals)} ${token.symbol}` : "…"}
+          </strong>
         </>
       );
     }
