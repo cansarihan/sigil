@@ -3,6 +3,9 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
+  // GitHub Pages serves the app from /<repo>/, so the base path is injected
+  // at build time rather than hard-coded to one hosting choice.
+  base: process.env.VITE_BASE ?? "/",
   build: {
     target: "es2022",
     sourcemap: true,

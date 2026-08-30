@@ -1,0 +1,54 @@
+name: deploy web
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race; the last push to main is the one that should win.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build --workspace sigil-vault-client
+
+      - name: Build the dashboard
+        env:
+          # Set these as repository variables so a redeploy can repoint the UI
+          # at a new vault without a code change.
+          VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_NETWORK: ${{ vars.VITE_NETWORK || 'testnet' }}
+          VITE_VAULT_ID: ${{ vars.VITE_VAULT_ID }}
+          VITE_RELAYER_URL: ${{ vars.VITE_RELAYER_URL }}
+        run: npm run build --workspace web
+
+      # GitHub Pages serves static files only, so a deep link would 404 on
+      # reload without a copy of index.html to fall back to.
+      - run: cp web/dist/index.html web/dist/404.html
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+      - id: deploy
+        uses: actions/deploy-pages@v4
