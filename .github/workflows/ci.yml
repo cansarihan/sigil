@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  contracts:
+    name: contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the Rust toolchain
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt,clippy
+          rustup target add wasm32v1-none
+
+      - uses: Swatinem/rust-cache@v2
+
+      - run: cargo fmt --all --check
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test
+
+      # Reproducibility matters here: the hash printed by this step is what a
+      # reviewer compares against the wasm hash of the deployed contract.
+      - name: Build and hash the wasm
+        run: |
+          cargo install --locked stellar-cli --version 26.0.0 || cargo install --locked stellar-cli
+          stellar contract build
+          sha256sum target/wasm32v1-none/release/sigil_vault.wasm
+
+  javascript:
+    name: relayer and web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build --workspace sigil-vault-client
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build --workspace web
+
+      # A treasury front end should not ship known-vulnerable dependencies.
+      - run: npm audit --audit-level=high
