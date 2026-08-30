@@ -96,7 +96,20 @@ Every entry point extends the instance TTL, so an active vault never archives.
 A vault untouched past its TTL needs its instance entry restored before use;
 funds are unaffected. Documented in the deployment guide.
 
-### 9 — No emergency pause · by design
+### 9 — Mainnet signer keys share one machine · accepted, and it matters
+
+The first mainnet vault is configured 2-of-3, but all three signer keys were
+generated on and are stored on a single machine. An attacker with that machine
+has every key, so the vault's real security is 1-of-1 — the threshold is a
+costume.
+
+This is a deliberate choice for a launch vault holding a small float, not a
+recommendation. A vault holding money worth stealing needs each key on a
+separate device held by a separate person, which is the entire reason M-of-N
+exists. Rotating a key onto its own device is itself a proposal
+(`AddSigner` / `RemoveSigner`) and needs no redeploy.
+
+### 10 — No emergency pause · by design
 
 There is no pause switch, because a pause switch is an address that can freeze
 everyone else's money. The timelock is the equivalent control: it gives the

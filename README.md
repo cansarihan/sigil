@@ -78,6 +78,12 @@ that need you.
 
 Level 6 asks for one. Sigil implements two.
 
+> [!NOTE]
+> The first mainnet vault runs 2-of-3 with all three keys on one machine, so its
+> effective security is 1-of-1. That is fine for a small launch float and wrong
+> for real custody — see [finding 9](docs/security.md). Moving a key to its own
+> device is a proposal, not a redeploy.
+
 **Multi-signature logic.** M-of-N approval over every action, with a timelock
 between agreement and execution, per-token daily spending caps, and — the part
 that makes key rotation real — approvals re-counted against the *live* signer
