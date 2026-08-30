@@ -47,8 +47,28 @@ balance moved. `docs/user-guide.md` has the commands.
 
 ## 3. Deploy to mainnet
 
-Fund the deploying account with about 10 XLM. Deployment costs well under that;
-the surplus covers retries.
+### What it costs
+
+Measured on testnet, where resource fees use the same formula as mainnet:
+
+| Operation | Fee |
+| --- | --- |
+| Deploy the vault (22 KB wasm) | **15.34 XLM** |
+| Deposit tokens | 0.011 XLM |
+| Open a proposal | 0.081 XLM |
+| Execute via the relayer | 0.0017 XLM |
+
+Almost all of the deploy cost is rent on the wasm entry, not the transaction
+fee, and it scales with contract size. Everyday use is fractions of a cent.
+
+Budget for mainnet:
+
+- **~17 XLM** for the deploy, with headroom for a retry.
+- **1 XLM per signer account** that does not exist yet (the base reserve).
+- **Whatever the vault will custody**, moved in only after a test payout.
+- **5–10 XLM for the relayer sponsor**, if you run one. At the rates above that
+  is thousands of sponsored operations, and it caps what a runaway relayer can
+  lose.
 
 ```bash
 stellar keys add sigil-deployer --secret-key      # paste the secret, never commit it
