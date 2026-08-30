@@ -57,10 +57,7 @@ fn setup(signer_count: u32, threshold: u32, timelock: u64) -> Ctx<'static> {
     let token = asset.address();
     let minter = StellarAssetClient::new(&env, &token);
 
-    let id = env.register(
-        SigilVault,
-        (signers.clone(), threshold, timelock, TTL),
-    );
+    let id = env.register(SigilVault, (signers.clone(), threshold, timelock, TTL));
     let vault = SigilVaultClient::new(&env, &id);
     minter.mint(&id, &1_000);
 
@@ -462,5 +459,8 @@ fn the_group_can_change_its_own_timelock() {
     assert_eq!(ctx.vault.config().timelock, 7_200);
 
     let payout = approve_to_threshold(&ctx, ctx.payout(100), 2, 0);
-    assert_eq!(ctx.vault.try_execute(&payout), Err(Ok(Error::TimelockActive)));
+    assert_eq!(
+        ctx.vault.try_execute(&payout),
+        Err(Ok(Error::TimelockActive))
+    );
 }

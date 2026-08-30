@@ -83,7 +83,7 @@ impl SigilVault {
 
         token::TokenClient::new(&env, &token).transfer(
             &from,
-            &env.current_contract_address(),
+            env.current_contract_address(),
             &amount,
         );
         Deposited {
