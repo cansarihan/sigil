@@ -1,0 +1,16 @@
+{
+  "name": "sigil",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*", "relayer", "web"],
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "tsc --noEmit -p relayer && tsc --noEmit -p web",
+    "contracts:build": "./scripts/build.sh",
+    "contracts:test": "cargo test",
+    "relayer": "npm run start --workspace relayer",
+    "web": "npm run dev --workspace web"
+  }
+}
