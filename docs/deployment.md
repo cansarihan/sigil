@@ -66,7 +66,10 @@ stellar contract info interface --network mainnet --id <CONTRACT_ID>
 ```
 
 The hash from `build.sh` should equal the one in the CI run for the commit you
-deployed from.
+deployed from. It only reproduces because `rust-toolchain.toml` pins the exact
+compiler and CI installs a pinned `stellar-cli` release — the contract's
+metadata records both versions, so an unpinned toolchain silently produces a
+different hash for identical source.
 
 ## 4. Fund the vault
 

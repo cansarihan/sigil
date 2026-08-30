@@ -5,7 +5,9 @@ a mentor or third-party sign-off, not a substitute for one. Anything unverified
 says so.
 
 - **Contract:** `contracts/vault`, `soroban-sdk 27.0.6`
-- **Reviewed wasm hash:** printed by `./scripts/build.sh` and by every CI run
+- **Reviewed wasm hash:** `878cf13aca799812627c17e4faab4dddafe98244d08082c24f701205455ffc8b`,
+  reproducible from `./scripts/build.sh` with the pinned toolchain, and printed
+  by every CI run
 - **Automated coverage:** 28 contract tests, 16 relayer tests, 19 dashboard tests
 - **External audit:** not yet commissioned
 

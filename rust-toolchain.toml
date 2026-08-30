@@ -1,3 +1,9 @@
+# Pinned, not "stable": the compiler version is recorded in the contract's
+# metadata and changes its codegen, so an unpinned toolchain makes the wasm
+# hash unreproducible — and that hash is how a reviewer checks that the
+# deployed contract is the code in this repository.
 [toolchain]
-channel = "stable"
+channel = "1.95.0"
 targets = ["wasm32v1-none"]
+profile = "minimal"
+components = ["rustfmt", "clippy"]
