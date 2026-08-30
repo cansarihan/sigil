@@ -23,19 +23,29 @@ propose ──▶ approve ×M ──▶ (timelock) ──▶ execute ──▶ t
 | | |
 | --- | --- |
 | **Dashboard** | **<https://cansarihan.github.io/sigil/>** |
-| **Testnet vault** | [`CBP4O4G5VI3UB6L5ED7R5JUNZ7QZZMWWJYLTL6GOVK6S7II4P66GTRZ5`](https://stellar.expert/explorer/testnet/contract/CBP4O4G5VI3UB6L5ED7R5JUNZ7QZZMWWJYLTL6GOVK6S7II4P66GTRZ5) |
+| **Testnet vault** | [`CB6IEZRJHZ7PAZAUNEEPIWZIBT2YGQ3RV433EPHYWG3CEE657H6K5OSQ`](https://stellar.expert/explorer/testnet/contract/CB6IEZRJHZ7PAZAUNEEPIWZIBT2YGQ3RV433EPHYWG3CEE657H6K5OSQ) |
 | **Testnet config** | 2-of-3, no timelock, 7-day proposal life |
 | **Wasm hash** | `878cf13aca799812627c17e4faab4dddafe98244d08082c24f701205455ffc8b` |
 | **Mainnet vault** | _not yet deployed — see [deployment](docs/deployment.md)_ |
 
-End-to-end on testnet, including a payout settled by a **non-signer relayer**:
+End-to-end on testnet, ending in a payout the **relayer paid for entirely**:
 
 | Step | Transaction |
 | --- | --- |
-| Deploy | [`d951d46d…`](https://stellar.expert/explorer/testnet/tx/d951d46dbdca4bf674806185bc755f7bff8537a4a80bce5227c85b17e7fb822a) |
-| Propose | [`1889a4d9…`](https://stellar.expert/explorer/testnet/tx/1889a4d92b8f1455647bb10020ae9281f95da16607fefff43525d706dd0a6a83) |
-| Execute, submitted by a non-signer | [`9e66bdf2…`](https://stellar.expert/explorer/testnet/tx/9e66bdf25ea0898cc8ccb1bd87fcf448e9cebffbf959219a1ce83c9987806f06) |
-| **Gasless settlement — relayer built, signed and paid for it; no signer involved** | [`1a21f994…`](https://stellar.expert/explorer/testnet/tx/1a21f994ff2b430712882cfe3617a053f58bdc316343dada94cf1057d4d59460) |
+| Deploy | [`e711b98e…`](https://stellar.expert/explorer/testnet/tx/e711b98e73943a479f978fbdebc1ece6766b7ae3b8e2bfb150c3e3db9ccbdf3f) |
+| Deposit 100 XLM | [`3278628a…`](https://stellar.expert/explorer/testnet/tx/3278628aae99066239bf950b05994c919dbd48787df5632f64af9f7c4406548a) |
+| Propose a 5 XLM payout | [`d4fa8a73…`](https://stellar.expert/explorer/testnet/tx/d4fa8a73345396ec3e1bf0751678b15fe55f4d8016716c9b453541e9b9a45e04) |
+| Second approval, reaching quorum | [`03b9cbe3…`](https://stellar.expert/explorer/testnet/tx/03b9cbe3c828c21e58a74d595560b0f3bee5ecc9d39e13e7ea57a66261161c65) |
+| **Gasless settlement — the relayer built, signed and paid for it; no signer involved** | [`4ce8be77…`](https://stellar.expert/explorer/testnet/tx/4ce8be77de4c90db25326780ba0659973ca413099392498c544ea8572e79a5ad) |
+
+The deployed contract is verifiably this source. All three hashes agree:
+
+```
+local  ./scripts/build.sh                                878cf13a…455ffc8b
+CI     every run prints it                               878cf13a…455ffc8b
+chain  stellar contract fetch --id <VAULT> --network testnet | shasum -a 256
+                                                         878cf13a…455ffc8b
+```
 
 ## Advanced features
 
